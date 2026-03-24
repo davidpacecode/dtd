@@ -9,4 +9,13 @@
     <%= task.due_date %>
   </div>
 
+  <div>
+    <strong>Project:</strong>
+    <%= task.project&.name %>
+  </div>
+
+  <div>
+    <strong>Description:</strong>
+    <%= task.description %>
+  </div>
 </div>
