@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="wa-cloak">
   <head>
     <title><%= content_for(:title) || "Dtd" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -31,13 +31,16 @@
     <wa-page>
 
       <header slot="header">
-        Dave's to-do list
+        <%= link_to root_path, class: "wa-align-items-center", style: "text-decoration: none;" do %>
+          <wa-icon name="face-glasses" family="sharp-duotone" variant="thin" style="font-size: 4em; --primary-color: rgb(10, 67, 168); --secondary-color: rgb(10, 67, 168);"></wa-icon>
+          <span class="wa-heading-2xl" style="text-decoration: none;">Dave's to-do list</span>
+        <% end %>
       </header>
 
       <nav slot="navigation">
         <ul>
-          <li>First link</li>
-          <li>Second link</li>
+          <li><%= link_to "Tasks", tasks_path %></li>
+          <li><%= link_to "Projects", projects_path %></li>
         </ul>
       </nav>
 
@@ -46,7 +49,8 @@
       </main>
 
       <footer slot="footer">
-        Made with ❤️ in Austin, TX
+        <span class="wa-heading-l">Made with <wa-icon name="heart" family="notdog" variant="solid" style="font-size: 1em;  color: rgb(255, 26, 0);"></wa-icon> in Austin, TX</span>
       </footer>
+    </wa-page>
   </body>
 </html>
