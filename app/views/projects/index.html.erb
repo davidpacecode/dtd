@@ -5,12 +5,21 @@
 <h1>Projects</h1>
 
 <div id="projects">
-  <% @projects.each do |project| %>
-    <%= render project %>
-    <p>
-      <%= link_to "Show this project", project %>
-    </p>
-  <% end %>
+  <table>
+    <caption>Get shit done</caption>
+    <thead>
+      <th>Name</th>
+      <th>Description</th>
+    </thead>
+    <tbody>
+      <% @projects.each do |project| %>
+        <tr>
+          <td><%= link_to project.name, project %></td>
+          <td><%= project.description %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
 <%= link_to "New project", new_project_path %>
