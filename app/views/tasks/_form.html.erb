@@ -32,6 +32,16 @@
   </div>
 
   <div>
+    <%= form.label :priority, style: "display: block" %>
+    <%= form.select :priority, Task.priorities.keys.map { |p| [p.capitalize, p] }, { prompt: "Select priority" } %>
+  </div>
+
+  <div>
+    <%= form.label :complete %>
+    <%= form.check_box :complete %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

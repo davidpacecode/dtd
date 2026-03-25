@@ -18,4 +18,14 @@
     <strong>Description:</strong>
     <%= task.description %>
   </div>
+
+  <div>
+    <strong>Priority:</strong>
+    <%= task.priority&.capitalize %>
+  </div>
+
+  <div>
+    <strong>Complete:</strong>
+    <%= task.complete? ? "Yes" : "No" %>
+  </div>
 </div>

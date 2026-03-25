@@ -27,6 +27,26 @@
   </head>
 
   <body>
-    <%= yield %>
+
+    <wa-page>
+
+      <header slot="header">
+        Dave's to-do list
+      </header>
+
+      <nav slot="navigation">
+        <ul>
+          <li>First link</li>
+          <li>Second link</li>
+        </ul>
+      </nav>
+
+      <main>
+        <%= yield %>
+      </main>
+
+      <footer slot="footer">
+        Made with ❤️ in Austin, TX
+      </footer>
   </body>
 </html>
