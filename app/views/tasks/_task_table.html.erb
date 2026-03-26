@@ -1,0 +1,25 @@
+<table>
+  <caption>Eat that frog!</caption>
+  <thead>
+    <th>Due Date</th>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Priority</th>
+    <th>Project</th>
+    <th></th>
+    <th></th>
+  </thead>
+  <tbody>
+    <% tasks.order(:due_date).each do |task| %>
+      <tr>
+        <td><%= task.due_date.to_fs(:long) %></td>
+        <td><%= link_to task.title, task %></td>
+        <td><%= task.description %></td>
+        <td><%= task.priority.titleize %></td>
+        <td><%= task.project.name %></td>
+        <td><%= link_to "Edit", edit_task_path(task) %></td>
+        <td><%= link_to "Delete", task, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
