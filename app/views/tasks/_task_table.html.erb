@@ -1,20 +1,24 @@
-<table>
-  <caption>Eat that frog!</caption>
-  <thead>
-    <th>Complete?</th>
-    <th>Due Date</th>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Priority</th>
-    <th>Project</th>
-    <th></th>
-    <th></th>
-  </thead>
-  <tbody>
-    <% tasks.order(:due_date).each do |task| %>
-      <%= turbo_frame_tag "task_row_#{task.id}" do %>
+<%= turbo_frame_tag "task_table" do %>
+  <table>
+    <caption>Eat that frog!</caption>
+    <thead>
+      <th>Complete?</th>
+      <th>Due Date</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Priority</th>
+      <th>Project</th>
+      <th></th>
+      <th></th>
+    </thead>
+    <tbody>
+      <% tasks.order(:due_date).each do |task| %>
         <tr>
-          <td><%= check_box_tag "task[complete]", task.id, task.complete?, data: { turbo_frame: "task_row_#{task.id}" } %></td>
+          <td>
+            <%= form_with url: task_path(task), method: :patch, data: { turbo_submits_on: "change" } do |form| %>
+              <%= check_box_tag "task[complete]", task.id, task.complete?, data: { turbo_frame: "task_table" } %>
+            <% end %>
+          </td>
           <td><%= task.due_date.to_fs(:long) %></td>
           <td>
             <%= turbo_frame_tag "edit_task_title_#{task.id}" do %>
@@ -32,6 +36,6 @@
           <td><%= link_to "Delete", task, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></td>
         </tr>
       <% end %>
-    <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+<% end %>
