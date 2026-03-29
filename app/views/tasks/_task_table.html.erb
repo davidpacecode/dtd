@@ -18,7 +18,10 @@
             <%= link_to task.title, edit_task_title_path(task), data: { turbo_frame: "edit_task_title_#{task.id}" } %>
           <% end %>
         </td>
-        <td><%= task.description %></td>
+        <td>
+          <%= task.complete? ? content_tag(:s, truncate(task.description.to_plain_text)) :
+             truncate(task.description.to_plain_text) %>
+        </td>
         <td><%= task.priority.titleize %></td>
         <td><%= task.project.name %></td>
         <td><%= link_to "View", task %></td>
