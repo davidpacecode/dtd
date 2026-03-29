@@ -1,6 +1,7 @@
 <table>
   <caption>Eat that frog!</caption>
   <thead>
+    <th>Complete?</th>
     <th>Due Date</th>
     <th>Title</th>
     <th>Description</th>
@@ -11,23 +12,26 @@
   </thead>
   <tbody>
     <% tasks.order(:due_date).each do |task| %>
-      <tr>
-        <td><%= task.due_date.to_fs(:long) %></td>
-        <td>
-          <%= turbo_frame_tag "edit_task_title_#{task.id}" do %>
-            <%= link_to task.title, edit_task_title_path(task), data: { turbo_frame: "edit_task_title_#{task.id}" } %>
-          <% end %>
-        </td>
-        <td>
-          <%= task.complete? ? content_tag(:s, truncate(task.description.to_plain_text)) :
-             truncate(task.description.to_plain_text) %>
-        </td>
-        <td><%= task.priority.titleize %></td>
-        <td><%= task.project.name %></td>
-        <td><%= link_to "View", task %></td>
-        <td><%= link_to "Edit", edit_task_path(task) %></td>
-        <td><%= link_to "Delete", task, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></td>
-      </tr>
+      <%= turbo_frame_tag "task_row_#{task.id}" do %>
+        <tr>
+          <td><%= check_box_tag "task[complete]", task.id, task.complete?, data: { turbo_frame: "task_row_#{task.id}" } %></td>
+          <td><%= task.due_date.to_fs(:long) %></td>
+          <td>
+            <%= turbo_frame_tag "edit_task_title_#{task.id}" do %>
+              <%= link_to task.title, edit_task_title_path(task), data: { turbo_frame: "edit_task_title_#{task.id}" } %>
+            <% end %>
+          </td>
+          <td>
+            <%= task.complete? ? content_tag(:s, truncate(task.description.to_plain_text)) :
+               truncate(task.description.to_plain_text) %>
+          </td>
+          <td><%= task.priority.titleize %></td>
+          <td><%= task.project.name %></td>
+          <td><%= link_to "View", task %></td>
+          <td><%= link_to "Edit", edit_task_path(task) %></td>
+          <td><%= link_to "Delete", task, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

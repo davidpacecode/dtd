@@ -40,14 +40,14 @@ class TasksController < ApplicationController
 
   # PATCH/PUT /tasks/1 or /tasks/1.json
   def update
-    respond_to do |format|
-      if @task.update(task_params)
-        format.html { redirect_to tasks_path, notice: "Task was successfully updated.", status: :see_other }
-        format.json { render :show, status: :ok, location: @task }
+    if @task.update(task_params)
+      if turbo_frame_request?
+        render partial: "task_table", locals: { tasks: Task.all }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
+        redirect_to @task, notice: "Task updated."
       end
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
