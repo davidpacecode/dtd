@@ -13,7 +13,11 @@
     <% tasks.order(:due_date).each do |task| %>
       <tr>
         <td><%= task.due_date.to_fs(:long) %></td>
-        <td><%= link_to task.title, task %></td>
+        <td>
+          <%= turbo_frame_tag "edit_task_title_#{task.id}" do %>
+            <%= link_to task.title, edit_task_title_path(task), data: { turbo_frame: "edit_task_title_#{task.id}" } %>
+          <% end %>
+        </td>
         <td><%= task.description %></td>
         <td><%= task.priority.titleize %></td>
         <td><%= task.project.name %></td>
