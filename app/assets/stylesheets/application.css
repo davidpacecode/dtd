@@ -8,3 +8,10 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+.task-table {
+  display: grid;
+  grid-template-columns: auto auto 1fr 2fr auto auto auto;
+  gap: var(--wa-space-s) var(--wa-space-m);
+  align-items: center;
+}

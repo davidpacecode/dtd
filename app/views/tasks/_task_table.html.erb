@@ -1,39 +1,47 @@
-<table>
-  <caption>Eat that frog!</caption>
-  <thead>
-    <th>Complete?</th>
-    <th>Due Date</th>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Priority</th>
-    <th>Project</th>
-    <th></th>
-    <th></th>
-  </thead>
-  <tbody>
+<%= turbo_frame_tag "task_table" do %>
+  <div class="task-table">
+    <div class="wa-heading-m">Complete?</div>
+    <div class="wa-heading-m">Due Date</div>
+    <div class="wa-heading-m">Title</div>
+    <div class="wa-heading-m">Description</div>
+    <div class="wa-heading-m">Priority</div>
+    <div class="wa-heading-m">Project</div>
+    <div class="wa-heading-m">Actions</div>
+
     <% tasks.order(:due_date).each do |task| %>
-      <tr>
-        <td>
-          <%= form_with url: task_path(task), method: :patch, data: { turbo_submits_on: "change" } do |form| %>
-            <%= check_box_tag "task[complete]", task.id, task.complete?, data: { turbo_frame: "task_table" } %>
-          <% end %>
-        </td>
-        <td><%= task.due_date.to_fs(:long) %></td>
-        <td>
-          <%= turbo_frame_tag "edit_task_title_#{task.id}" do %>
-            <%= link_to task.title, edit_task_title_path(task), data: { turbo_frame: "edit_task_title_#{task.id}" } %>
-          <% end %>
-        </td>
-        <td>
-          <%= task.complete? ? content_tag(:s, truncate(task.description.to_plain_text)) :
-             truncate(task.description.to_plain_text) %>
-        </td>
-        <td><%= task.priority.titleize %></td>
-        <td><%= task.project.name %></td>
-        <td><%= link_to "View", task %></td>
-        <td><%= link_to "Edit", edit_task_path(task) %></td>
-        <td><%= link_to "Delete", task, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></td>
-      </tr>
+      <div>
+        <%= form_with model: task, method: :patch,
+          data: {
+            controller: "auto-submit",
+            action: "change->auto-submit#submit",
+            turbo_frame: "task_table"
+          } do |form| %>
+          <%= form.check_box :complete %>
+        <% end %>
+      </div>
+      <div>
+        <%= task.due_date.to_fs(:long) %>
+      </div>
+      <div>
+        <%= turbo_frame_tag "edit_task_title_#{task.id}" do %>
+          <%= link_to task.title, edit_task_title_path(task), data: { turbo_frame: "edit_task_title_#{task.id}" } %>
+        <% end %>
+      </div>
+      <div>
+        <%= task.complete? ? content_tag(:s, truncate(task.description.to_plain_text)) :
+           truncate(task.description.to_plain_text) %>
+      </div>
+      <div>
+        <%= task.priority.titleize %>
+      </div>
+      <div>
+        <%= task.project.name %>
+      </div>
+      <div>
+        <%= link_to "View", task %>
+        <%= link_to "Edit", edit_task_path(task) %>
+        <%= link_to "Delete", task, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
+<% end %>
