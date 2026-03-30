@@ -38,8 +38,8 @@
         <%= task.project.name %>
       </div>
       <div>
-        <%= link_to "View", task %>
-        <%= link_to "Edit", edit_task_path(task) %>
+        <%= link_to "View", task, data: { turbo_frame: "_top" } %>
+        <%= link_to "Edit", edit_task_path(task), data: { turbo_frame: "_top" } %>
         <%= link_to "Delete", task, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
       </div>
     <% end %>
