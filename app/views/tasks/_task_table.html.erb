@@ -1,47 +1,45 @@
-<%= turbo_frame_tag "task_table" do %>
-  <div class="task-table">
-    <div class="wa-heading-m">Complete?</div>
-    <div class="wa-heading-m">Due Date</div>
-    <div class="wa-heading-m">Title</div>
-    <div class="wa-heading-m">Description</div>
-    <div class="wa-heading-m">Priority</div>
-    <div class="wa-heading-m">Project</div>
-    <div class="wa-heading-m">Actions</div>
+<div class="task-table">
+  <div class="wa-heading-m">Complete?</div>
+  <div class="wa-heading-m">Due Date</div>
+  <div class="wa-heading-m">Title</div>
+  <div class="wa-heading-m">Description</div>
+  <div class="wa-heading-m">Priority</div>
+  <div class="wa-heading-m">Project</div>
+  <div class="wa-heading-m">Actions</div>
 
-    <% tasks.order(:due_date).each do |task| %>
-      <div>
-        <%= form_with model: task, method: :patch,
-          data: {
-            controller: "auto-submit",
-            action: "change->auto-submit#submit",
-            turbo_frame: "task_table"
-          } do |form| %>
-          <%= form.check_box :complete %>
-        <% end %>
-      </div>
-      <div>
-        <%= task.due_date.to_fs(:long) %>
-      </div>
-      <div>
-        <%= turbo_frame_tag "edit_task_title_#{task.id}" do %>
-          <%= link_to task.title, edit_task_title_path(task), data: { turbo_frame: "edit_task_title_#{task.id}" } %>
-        <% end %>
-      </div>
-      <div>
-        <%= task.complete? ? content_tag(:s, truncate(task.description.to_plain_text)) :
-           truncate(task.description.to_plain_text) %>
-      </div>
-      <div>
-        <%= task.priority.titleize %>
-      </div>
-      <div>
-        <%= task.project.name %>
-      </div>
-      <div>
-        <%= link_to "View", task, data: { turbo_frame: "_top" } %>
-        <%= link_to "Edit", edit_task_path(task), data: { turbo_frame: "_top" } %>
-        <%= link_to "Delete", task, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-      </div>
-    <% end %>
-  </div>
-<% end %>
+  <% tasks.order(:due_date).each do |task| %>
+    <div>
+      <%= form_with model: task, method: :patch,
+        data: {
+          controller: "auto-submit",
+          action: "change->auto-submit#submit",
+          turbo_frame: "task_table"
+        } do |form| %>
+        <%= form.check_box :complete %>
+      <% end %>
+    </div>
+    <div>
+      <%= task.due_date.to_fs(:long) %>
+    </div>
+    <div>
+      <%= turbo_frame_tag "edit_task_title_#{task.id}" do %>
+        <%= link_to task.title, edit_task_title_path(task), data: { turbo_frame: "edit_task_title_#{task.id}" } %>
+      <% end %>
+    </div>
+    <div>
+      <%= task.complete? ? content_tag(:s, truncate(task.description.to_plain_text)) :
+         truncate(task.description.to_plain_text) %>
+    </div>
+    <div>
+      <%= task.priority.titleize %>
+    </div>
+    <div>
+      <%= task.project.name %>
+    </div>
+    <div>
+      <%= link_to "View", task, data: { turbo_frame: "_top" } %>
+      <%= link_to "Edit", edit_task_path(task), data: { turbo_frame: "_top" } %>
+      <%= link_to "Delete", task, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+    </div>
+  <% end %>
+</div>

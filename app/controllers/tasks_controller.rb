@@ -42,7 +42,8 @@ class TasksController < ApplicationController
   def update
     if @task.update(task_params)
       if turbo_frame_request?
-        render partial: "task_table", locals: { tasks: Task.all }
+        # render partial: "task_table", locals: { tasks: Task.all }
+        render :index
       else
         redirect_to @task, notice: "Task updated."
       end

@@ -6,22 +6,23 @@
 
 <div id="tasks">
 
-  <wa-tab-group active="open">
-    <wa-tab panel="open">Open Tasks</wa-tab>
-    <wa-tab panel="closed">Closed Tasks</wa-tab>
-    <wa-tab panel="all">All Tasks</wa-tab>
+  <%= turbo_frame_tag "task_table" do %>
+    <wa-tab-group active="open">
+      <wa-tab panel="open">Open Tasks</wa-tab>
+      <wa-tab panel="closed">Closed Tasks</wa-tab>
+      <wa-tab panel="all">All Tasks</wa-tab>
 
-    <wa-tab-panel name="open">
-      <%= render "task_table", tasks: @tasks.where(complete: false) %>
-    </wa-tab-panel>
-    <wa-tab-panel name="closed">
-      <%= render "task_table", tasks: @tasks.where(complete: true) %>
-    </wa-tab-panel>
-    <wa-tab-panel name="all">
-      <%= render "task_table", tasks: @tasks %>
-    </wa-tab-panel>
-  </wa-tab-group>
-
+      <wa-tab-panel name="open">
+        <%= render "task_table", tasks: @tasks.where(complete: false) %>
+      </wa-tab-panel>
+      <wa-tab-panel name="closed">
+        <%= render "task_table", tasks: @tasks.where(complete: true) %>
+      </wa-tab-panel>
+      <wa-tab-panel name="all">
+        <%= render "task_table", tasks: @tasks %>
+      </wa-tab-panel>
+    </wa-tab-group>
+  <% end %>
 
 </div>
 
