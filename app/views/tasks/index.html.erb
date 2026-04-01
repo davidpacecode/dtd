@@ -2,26 +2,12 @@
 
 <% content_for :title, "Tasks" %>
 
-<h2>Tasks</h2>
+<h2><%= "#{@view.titleize} Tasks" %></h2>
 
 <div id="tasks">
 
   <%= turbo_frame_tag "task_table" do %>
-    <wa-tab-group active="open">
-      <wa-tab panel="open">Open Tasks</wa-tab>
-      <wa-tab panel="closed">Closed Tasks</wa-tab>
-      <wa-tab panel="all">All Tasks</wa-tab>
-
-      <wa-tab-panel name="open">
-        <%= render "task_table", tasks: @tasks.where(complete: false) %>
-      </wa-tab-panel>
-      <wa-tab-panel name="closed">
-        <%= render "task_table", tasks: @tasks.where(complete: true) %>
-      </wa-tab-panel>
-      <wa-tab-panel name="all">
-        <%= render "task_table", tasks: @tasks %>
-      </wa-tab-panel>
-    </wa-tab-group>
+    <%= render "task_table", tasks: @tasks, view: @view %>
   <% end %>
 
 </div>

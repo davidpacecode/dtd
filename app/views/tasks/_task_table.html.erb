@@ -16,14 +16,17 @@
           turbo_frame: "task_table"
         } do |form| %>
         <%= form.check_box :complete %>
+        <%= form.hidden_field :view, value: view %>
       <% end %>
     </div>
     <div>
-      <%= task.due_date.to_fs(:long) %>
+      <%= task.complete? ? content_tag(:s, task.due_date.to_fs(:long)) :
+         task.due_date.to_fs(:long) %>
     </div>
     <div>
       <%= turbo_frame_tag "edit_task_title_#{task.id}" do %>
-        <%= link_to task.title, edit_task_title_path(task), data: { turbo_frame: "edit_task_title_#{task.id}" } %>
+        <%= link_to task.complete? ? content_tag(:s, task.title) : task.title,
+          edit_task_title_path(task), data: { turbo_frame: "edit_task_title_#{task.id}" } %>
       <% end %>
     </div>
     <div>
@@ -31,10 +34,12 @@
          truncate(task.description.to_plain_text) %>
     </div>
     <div>
-      <%= task.priority.titleize %>
+      <%= task.complete? ? content_tag(:s, task.priority.titleize) :
+         task.priority.titleize %>
     </div>
     <div>
-      <%= task.project.name %>
+      <%= task.complete? ? content_tag(:s, task.project.name) :
+         task.project.name %>
     </div>
     <div>
       <%= link_to "View", task, data: { turbo_frame: "_top" } %>

@@ -3,7 +3,19 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.all
+    complete = params[:complete]
+
+    case complete
+    when "true"
+      @tasks = Task.where(complete: true)
+      @view = "closed"
+    when "false"
+      @tasks = Task.where(complete: false)
+      @view = "open"
+    else
+      @tasks = Task.all
+      @view = "all"
+    end
   end
 
   # GET /tasks/1 or /tasks/1.json
@@ -43,7 +55,23 @@ class TasksController < ApplicationController
     if @task.update(task_params)
       if turbo_frame_request?
         # render partial: "task_table", locals: { tasks: Task.all }
-        @tasks = Task.all
+        # @tasks = Task.all
+        
+        logger.debug "#{@task.complete}"
+        logger.debug "#{@task.complete}"
+        logger.debug "#{@task.complete}"
+        logger.debug "#{@task.complete}"
+        logger.debug "#{@task.complete}"
+
+        @view = params[:task][:view]
+        case @view
+        when "open"
+          @tasks = Task.where(complete: false)
+        when "closed"
+          @tasks = Task.where(complete: true)
+        else
+          @tasks = Task.all
+        end
         render :index
       else
         redirect_to @task, notice: "Task updated."
