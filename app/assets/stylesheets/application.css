@@ -15,3 +15,10 @@
   gap: var(--wa-space-s) var(--wa-space-m);
   align-items: center;
 }
+
+.project-table {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: var(--wa-space-s) var(--wa-space-m);
+  align-items: center;
+}
