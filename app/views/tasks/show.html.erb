@@ -6,5 +6,8 @@
   <%= link_to "Edit this task", edit_task_path(@task) %> |
   <%= link_to "Back to tasks", tasks_path %>
 
-  <%= button_to "Destroy this task", @task, method: :delete %>
+  <%= form_with url: task_path(@task), method: :delete, data: { turbo_confirm: "Are you sure?" } do %>
+    <wa-button type="submit" pill size="small">Delete</wa-button>
+  <% end %>
+  <%# button_to "Destroy this task", @task, method: :delete %>
 </div>
