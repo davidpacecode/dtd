@@ -9,5 +9,4 @@
   <%= form_with url: task_path(@task), method: :delete, data: { turbo_confirm: "Are you sure?" } do %>
     <wa-button type="submit" pill size="small">Delete</wa-button>
   <% end %>
-  <%# button_to "Destroy this task", @task, method: :delete %>
 </div>

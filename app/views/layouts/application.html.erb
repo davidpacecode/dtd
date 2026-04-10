@@ -26,18 +26,18 @@
     <script src="https://kit.webawesome.com/79866b1b91754115.js" crossorigin="anonymous"></script>
   </head>
 
-  <body>
+  <body style="background-color: var(--wa-color-orange-30)">
 
-    <wa-page>
+    <wa-page style="background-color: var(--wa-color-orange-90)">
 
-      <header slot="header">
+      <header slot="header" style="background-color: var(--wa-color-orange-90)">
         <%= link_to root_path, class: "wa-align-items-center", style: "text-decoration: none;" do %>
           <wa-icon name="face-glasses" family="sharp-duotone" variant="thin" style="font-size: 4em; --primary-color: rgb(10, 67, 168); --secondary-color: rgb(10, 67, 168);"></wa-icon>
           <span class="wa-heading-2xl" style="text-decoration: none;">Dave's to-do list</span>
         <% end %>
       </header>
 
-      <nav slot="navigation">
+      <nav slot="navigation" style="background-color: var(--wa-color-orange-90)">
         <span class="wa-heading-m">Tasks</span>
           <ul>
             <li><%= link_to "Open", tasks_path(complete: false) %></li>
@@ -49,10 +49,12 @@
       </nav>
 
       <main>
-        <%= yield %>
+        <wa-card>
+          <%= yield %>
+        </wa-card>
       </main>
 
-      <footer slot="footer">
+      <footer slot="footer" style="background-color: var(--wa-color-orange-90)">
         <span class="wa-heading-l">Made with <wa-icon name="heart" family="notdog" variant="solid" style="font-size: 1em;  color: rgb(255, 26, 0);"></wa-icon> in Austin, TX</span>
       </footer>
     </wa-page>
